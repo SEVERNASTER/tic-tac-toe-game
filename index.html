@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tres en Raya</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div style="--i: 1" class=" bg-animation"></div>
+    <div style="--i: 2" class=" bg-animation"></div>
+    <div style="--i: 3" class=" bg-animation"></div>
+    <div style="--i: 4" class=" bg-animation"></div>
+
+    <div class="contenedor">
+        <header class="encabezado">
+            <div class="contenedor-titulo">
+                <h1>Tres en Raya</h1>
+                <p>¡Consigue alinear tres símbolos para ganar!</p>
+            </div>
+        </header>
+
+        <div class="jugadores">
+            <div class="jugador1 jugador">
+                <h2>Nombre 1</h2>
+                <div class="simbolo">X</div>
+            </div>
+            <div class="jugador2 jugador">
+                <h2>Nombre 2</h2>
+                <div class="simbolo">O</div>
+            </div>
+        </div>
+
+        <div class="mensaje-de-turno">
+            <h2>Turno de <span>Jugador 1</span> <span>(X)</span></h2>
+        </div>
+
+
+        <div class="tablero">
+            <div class="celda"><span id="valor1">X</span></div>
+            <div class="celda"><span id="valor2">X</span></div>
+            <div class="celda"><span id="valor3">O</span></div>
+            <div class="celda"><span id="valor4">O</span></div>
+            <div class="celda"><span id="valor5">X</span></div>
+            <div class="celda"><span id="valor6">O</span></div>
+            <div class="celda"><span id="valor7">X</span></div>
+            <div class="celda"><span id="valor8">O</span></div>
+            <div class="celda"><span id="valor9">X</span></div>
+        </div>
+
+        <div class="botones">
+            <button id="reiniciarBtn">Reiniciar Jugador</button>
+            <button id="deNuevoBtn">Nueva Partida</button>
+        </div>
+
+    </div>
+</body>
+
+</html>
