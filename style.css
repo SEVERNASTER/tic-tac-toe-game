@@ -89,6 +89,7 @@ body {
     margin: 20px 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     background-color: #58016D;
     border-radius: 20px;
     padding: 10px;
@@ -120,6 +121,10 @@ body {
 
 .celda.ocupado {
     background-color: #660868;
+}
+
+.celda:hover.ocupado {
+
 }
 
 .botones {
