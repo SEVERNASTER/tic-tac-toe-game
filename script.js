@@ -3,18 +3,31 @@ const celdas = document.querySelectorAll('.celda')
 let esTurnoJugador1 = true;
 let simboloActual = 'X'
 let simboloContrario = 'O'
-let tablero = [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
-]
+tablero = [['', '', ''], ['', '', ''], ['', '', '']]
+tableroHTML = [[], [], []]
 const colorX = '#E2453D'
 const colorO = '#F89227'
-let casillasGanadoras = []
+let celdasGanadoras = []
+
+
+acomodarCeldas()
+function acomodarCeldas() {
+    let aux = 0;
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            tableroHTML[i][j] = celdas[aux++];
+        }
+    }
+    imprimirMatriz()
+
+}
+
+
+
 
 celdas.forEach(celda => {
     celda.addEventListener('click', () => {
-        if(celda.classList.contains('ocupado')) return;
+        if (celda.classList.contains('ocupado')) return;
 
         celda.classList.add('ocupado')
         const contenido = celda.querySelector('span')
@@ -23,12 +36,16 @@ celdas.forEach(celda => {
         const fila = estilos.getPropertyValue('--fila')
         const columna = estilos.getPropertyValue('--columna')
         tablero[fila][columna] = simboloActual;
-        
+
 
         if (filaTresEnRaya() || columnaTresEnRaya() || diagonalesTresEnRaya()) {
             console.log('tres en raya');
-            console.log(casillasGanadoras);
-            
+            console.log(celdasGanadoras);
+            confetti({
+                particleCount: 200,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
             inhabilitarTodasLasCeldas()
         } else {
             console.log('no hay ganador');
@@ -44,10 +61,13 @@ celdas.forEach(celda => {
 });
 
 function filaTresEnRaya() {
-    for (const fila of tablero) {
+    for (let i in tablero) {
+        const fila = tablero[i]
+        const filaHTML = tableroHTML[i]
+
         const tresEnRaya = fila.every(celda => celda === simboloActual);
         if (tresEnRaya) {
-            casillasGanadoras = fila;
+            marcarCeldasGanadoras(filaHTML)
             return true;
         }
     }
@@ -55,15 +75,23 @@ function filaTresEnRaya() {
 }
 
 function columnaTresEnRaya() {
+    let columnaHTML = [];
     for (let i = 0; i < 3; i++) {
         let tresEnRaya = true;
+
         for (let j = 0; j < 3; j++) {
+            columnaHTML.push(tableroHTML[j][i])
+
             if (tablero[j][i] != simboloActual) {
                 tresEnRaya = false;
+                columnaHTML = [];
                 break;
             }
         }
-        if (tresEnRaya) return true;
+        if (tresEnRaya) {
+            marcarCeldasGanadoras(columnaHTML);
+            return true
+        }
     }
     return false;
 }
@@ -77,7 +105,35 @@ function diagonalesTresEnRaya() {
         tablero[1][1] === simboloActual &&
         tablero[2][0] === simboloActual;
 
+    let diagonalHTML = []
+
+    if (d1) {
+        diagonalHTML = [
+            tableroHTML[0][0],
+            tableroHTML[1][1],
+            tableroHTML[2][2]
+        ]
+        marcarCeldasGanadoras(diagonalHTML)
+    }
+
+    if (d2) {
+        diagonalHTML = [
+            tableroHTML[0][2],
+            tableroHTML[1][1],
+            tableroHTML[2][0]
+        ]
+        marcarCeldasGanadoras(diagonalHTML)
+    }
+
+
     return d1 || d2;
+}
+
+function marcarCeldasGanadoras(celdas) {
+    celdas.forEach(celda => {
+        celda.classList.add('ganador')
+        celda.querySelector('span').style.color = '#fff'
+    })
 }
 
 
@@ -87,7 +143,7 @@ function imprimirMatriz() {
     }
 }
 
-function inhabilitarTodasLasCeldas(){
+function inhabilitarTodasLasCeldas() {
     document.querySelectorAll('.celda').forEach(celda => celda.classList.add('ocupado'))
 }
 

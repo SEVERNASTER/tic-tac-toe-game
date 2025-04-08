@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center; */
     padding: 20px;
-    background-color: #3B0F30;
+    background: linear-gradient( #3C0E33, #650771);
 }
 
 .contenedor {
@@ -83,6 +83,7 @@ body {
 }
 
 .tablero {
+    position: relative;
     border: solid;
     width: 100%;
     aspect-ratio: 1/1;
@@ -93,7 +94,31 @@ body {
     background-color: #58016D;
     border-radius: 20px;
     padding: 10px;
+    overflow: hidden;
 }
+
+.tablero::before {
+    content: '¡ ¡ ¡ E M P A T E ! ! !';
+    position: absolute;
+    font-size: 3rem;
+    color: #fff;
+    background: linear-gradient(90deg, transparent, #F5882A, #F5882A, transparent);
+    width: 150%;
+    text-align: center;
+    top: 40%;
+    left: -20%;
+    transform: rotate(0deg) scale(3);
+    z-index: 10;
+    opacity: .1;
+    transition: .5s;
+}
+
+.tablero.empate::before {
+    transform: rotate(-45deg) scale(1);
+    opacity: 1;
+}
+
+
 
 .celda {
     /* border: solid; */
@@ -124,7 +149,22 @@ body {
 }
 
 .celda:hover.ocupado {
+    transform: scale(1);
+}
 
+.celda.ganador {
+    background-color: #E0403D;
+    animation: rotarGanador 1s ease-in;
+    animation-delay: calc(var(--tiempoGiro) * 50ms);
+}
+
+@keyframes rotarGanador {
+    50% {
+        transform: scale(.8) rotateY(180deg);
+    }
+    100% {
+        transform: scale(1) rotateY(360deg);
+    }
 }
 
 .botones {
@@ -146,11 +186,16 @@ body {
     border-radius: 20px;
     font-size: 1.2rem;
     transition: .3s;
+    cursor: pointer;
 }
 
 .botones button:hover {
     transform: scale(1.1);
     border: solid;
+}
+
+.botones button:active {
+    transform: scale(0.9);
 }
 
 .bg-animation {
