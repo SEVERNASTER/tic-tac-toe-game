@@ -10,6 +10,14 @@ const colorO = '#F89227'
 let celdasGanadoras = []
 let intentos = 9
 let tableroDOM = document.getElementById('tablero')
+const pantallaDeInicio = document.getElementById('pantallaDeInicio')
+const patallaJuego = document.getElementById('patallaJuego')
+const nombresJugadores = document.getElementById('nombresJugadores')
+const turnoJugadorHTML = document.getElementById('turnoJugador')
+let jugador1 = '';
+let jugador2 = '';
+
+
 
 
 
@@ -31,7 +39,7 @@ celdas.forEach(celda => {
     celda.addEventListener('click', () => {
         if (celda.classList.contains('ocupado')) return;
 
-        
+
         celda.classList.add('ocupado')
         const contenido = celda.querySelector('span')
         contenido.style.color = simboloActual === 'X' ? colorX : colorO;
@@ -41,6 +49,11 @@ celdas.forEach(celda => {
         tablero[fila][columna] = simboloActual;
         intentos--;
 
+        simboloContrario = simboloActual
+        simboloActual = esTurnoJugador1 ? 'O' : 'X'
+        esTurnoJugador1 = !esTurnoJugador1
+        contenido.textContent = simboloActual
+
 
         if (filaTresEnRaya() || columnaTresEnRaya() || diagonalesTresEnRaya()) {
             confetti({
@@ -49,17 +62,17 @@ celdas.forEach(celda => {
                 origin: { y: 0.6 }
             });
             inhabilitarTodasLasCeldas()
-        }else if(intentos === 0) {
+            return
+        } else if (intentos === 0) {
             mostrarEmpateLabel()
             console.log('empate');
-            
+
         }
 
 
-        contenido.textContent = simboloActual
-        simboloContrario = simboloActual
-        simboloActual = esTurnoJugador1 ? 'O' : 'X'
-        esTurnoJugador1 = !esTurnoJugador1
+        
+        turnoJugadorHTML.textContent = esTurnoJugador1 ? `${jugador1} (X)` : `${jugador2} (O)`
+        turnoJugadorHTML.style.color = esTurnoJugador1 ? '#E2453D' : '#F89227'
     })
 });
 
@@ -139,11 +152,11 @@ function marcarCeldasGanadoras(celdas) {
     })
 }
 
-function mostrarEmpateLabel(){
+function mostrarEmpateLabel() {
     tableroDOM.classList.add('mostrar-before')
     setTimeout(() => {
         tableroDOM.classList.add('empate')
-        
+
     }, 50);
 }
 
@@ -158,13 +171,33 @@ function inhabilitarTodasLasCeldas() {
     document.querySelectorAll('.celda').forEach(celda => celda.classList.add('ocupado'))
 }
 
-const contenedor = document.getElementById('contenedor')
-const contenedorPrincipal = document.getElementById('contenedorPrincipal')
-const dimensiones = contenedor.getBoundingClientRect()
 
-contenedorPrincipal.style.height = dimensiones.height;
+nombresJugadores.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    const data = Object.fromEntries(new FormData(e.target));
+    const { jugador1: nombreJugador1, jugador2: nombreJugador2 } = data
+
+    jugador1 = nombreJugador1
+    jugador2 = nombreJugador2
+
+    document.getElementById('nombreJugador1').textContent = nombreJugador1
+    document.getElementById('nombreJugador2').textContent = nombreJugador2
+
+    turnoJugadorHTML.textContent = `${nombreJugador1} (${simboloActual})`
+    turnoJugadorHTML.style.color = '#E2453D'
 
 
-console.log(dimensiones);
+    console.log(data);
+
+
+    pantallaDeInicio.classList.add('girar')
+    patallaJuego.classList.add('girar')
+
+
+})
+
+
+
 
 
