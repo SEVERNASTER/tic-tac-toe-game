@@ -26,7 +26,7 @@ body {
 .encabezado {
     background-color: #58016D;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     border-radius: 20px;
 }
 
@@ -65,11 +65,11 @@ body {
 }
 
 .jugador1 {
-    background: linear-gradient(#F78F28, #E34A3B);
+    background: linear-gradient(45deg, #F78F28, #E34A3B);
 }
 
 .jugador2 {
-    background: linear-gradient(#C90147, #5F016B);
+    background: linear-gradient(45deg, #C90147, #5F016B);
 }
 
 .mensaje-de-turno {
@@ -98,11 +98,12 @@ body {
 }
 
 .tablero::before {
+    display: none;
     content: '¡ ¡ ¡ E M P A T E ! ! !';
     position: absolute;
     font-size: 3rem;
     color: #fff;
-    background: linear-gradient(90deg, transparent, #F5882A, #F5882A, transparent);
+    background: linear-gradient(90deg, transparent, #F5882A, #C40149, transparent);
     width: 150%;
     text-align: center;
     top: 40%;
@@ -116,6 +117,10 @@ body {
 .tablero.empate::before {
     transform: rotate(-45deg) scale(1);
     opacity: 1;
+}
+
+.tablero.mostrar-before::before {
+    display: block;
 }
 
 
@@ -177,7 +182,7 @@ body {
 }
 
 .botones button {
-    background: linear-gradient(45deg, #CF0845, #E0403D);
+    background: linear-gradient(90deg, #CF0845, #E0403D);
     border: none;
     color: #fff;
     height: 50px;

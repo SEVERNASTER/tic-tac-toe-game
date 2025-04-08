@@ -3,11 +3,13 @@ const celdas = document.querySelectorAll('.celda')
 let esTurnoJugador1 = true;
 let simboloActual = 'X'
 let simboloContrario = 'O'
-tablero = [['', '', ''], ['', '', ''], ['', '', '']]
-tableroHTML = [[], [], []]
+let tablero = [['', '', ''], ['', '', ''], ['', '', '']]
+let tableroHTML = [[], [], []]
 const colorX = '#E2453D'
 const colorO = '#F89227'
 let celdasGanadoras = []
+let intentos = 9
+let tableroDOM = document.getElementById('tablero')
 
 
 acomodarCeldas()
@@ -18,7 +20,6 @@ function acomodarCeldas() {
             tableroHTML[i][j] = celdas[aux++];
         }
     }
-    imprimirMatriz()
 
 }
 
@@ -29,6 +30,7 @@ celdas.forEach(celda => {
     celda.addEventListener('click', () => {
         if (celda.classList.contains('ocupado')) return;
 
+        
         celda.classList.add('ocupado')
         const contenido = celda.querySelector('span')
         contenido.style.color = simboloActual === 'X' ? colorX : colorO;
@@ -36,20 +38,20 @@ celdas.forEach(celda => {
         const fila = estilos.getPropertyValue('--fila')
         const columna = estilos.getPropertyValue('--columna')
         tablero[fila][columna] = simboloActual;
+        intentos--;
 
 
         if (filaTresEnRaya() || columnaTresEnRaya() || diagonalesTresEnRaya()) {
-            console.log('tres en raya');
-            console.log(celdasGanadoras);
             confetti({
                 particleCount: 200,
-                spread: 70,
+                spread: 100,
                 origin: { y: 0.6 }
             });
             inhabilitarTodasLasCeldas()
-        } else {
-            console.log('no hay ganador');
-
+        }else if(intentos === 0) {
+            mostrarEmpateLabel()
+            console.log('empate');
+            
         }
 
 
@@ -134,6 +136,14 @@ function marcarCeldasGanadoras(celdas) {
         celda.classList.add('ganador')
         celda.querySelector('span').style.color = '#fff'
     })
+}
+
+function mostrarEmpateLabel(){
+    tableroDOM.classList.add('mostrar-before')
+    setTimeout(() => {
+        tableroDOM.classList.add('empate')
+        
+    }, 50);
 }
 
 
