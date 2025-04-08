@@ -49,11 +49,7 @@ celdas.forEach(celda => {
         tablero[fila][columna] = simboloActual;
         intentos--;
 
-        simboloContrario = simboloActual
-        simboloActual = esTurnoJugador1 ? 'O' : 'X'
-        esTurnoJugador1 = !esTurnoJugador1
         contenido.textContent = simboloActual
-
 
         if (filaTresEnRaya() || columnaTresEnRaya() || diagonalesTresEnRaya()) {
             confetti({
@@ -70,7 +66,9 @@ celdas.forEach(celda => {
         }
 
 
-        
+        simboloContrario = simboloActual
+        simboloActual = esTurnoJugador1 ? 'O' : 'X'
+        esTurnoJugador1 = !esTurnoJugador1
         turnoJugadorHTML.textContent = esTurnoJugador1 ? `${jugador1} (X)` : `${jugador2} (O)`
         turnoJugadorHTML.style.color = esTurnoJugador1 ? '#E2453D' : '#F89227'
     })
