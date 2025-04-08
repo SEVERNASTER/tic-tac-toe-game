@@ -19,19 +19,35 @@
     <div class="contenedor-principal" id="contenedorPrincipal">
         <div class="contenedor-giro">
 
-            <!-- <div class="pantalla-inicio">
-                <h2>Pantalla de inicio</h2>
-            </div> -->
-        
+            <div class="pantalla-inicio">
+                <div class="contenedor-titulo">
+                    <h1>Tres en Raya</h1>
+                    <p>¡Consigue alinear tres símbolos para ganar!</p>
+                </div>
+
+                <div class="simbolos-container">
+                    <div style="--item-delay:0" class="item x-simbolo">X</div>
+                    <div style="--item-delay:1" class="item o-simbolo">O</div>
+                </div>
+
+                <form class="formulario-jugadores" id="">
+                    <div class="grupo-input">
+                        <input id="jugador1" type="text" required>
+                        <label for="jugador1">Nombre del Jugador 1 (X)</label>
+                    </div>
+    
+                    <div class="grupo-input">
+                        <input id="jugador2" type="text" required>
+                        <label for="jugador2">Nombre del Jugador 2 (O)</label>
+                    </div>
+    
+                    <button class="botonJugar" id="jugarBtn">JUGAR</button>
+                </form>
+            </div>
+
             <div class="juego">
                 <div class="contenedor" id="contenedor">
-                    <!-- <header class="encabezado">
-                        <div class="contenedor-titulo">
-                            <h1>Tres en Raya</h1>
-                            <p>¡Consigue alinear tres símbolos para ganar!</p>
-                        </div>
-                    </header> -->
-            
+
                     <div class="jugadores">
                         <div class="jugador1 jugador">
                             <h2>Nombre 1</h2>
@@ -42,12 +58,12 @@
                             <div class="simbolo">O</div>
                         </div>
                     </div>
-            
+
                     <div class="mensaje-de-turno">
                         <h2>Turno de <span>Jugador 1</span> <span>(X)</span></h2>
                     </div>
-            
-            
+
+
                     <div class="tablero" id="tablero">
                         <div style="--fila:0;--columna:0;--tiempoGiro:1;" class="celda"><span id="valor1"></span></div>
                         <div style="--fila:0;--columna:1;--tiempoGiro:2;" class="celda"><span id="valor2"></span></div>
@@ -59,19 +75,19 @@
                         <div style="--fila:2;--columna:1;--tiempoGiro:8;" class="celda"><span id="valor8"></span></div>
                         <div style="--fila:2;--columna:2;--tiempoGiro:9;" class="celda"><span id="valor9"></span></div>
                     </div>
-            
+
                     <div class="botones">
                         <button id="reiniciarBtn">Reiniciar Juego</button>
                         <button id="deNuevoBtn">Nueva Partida</button>
                     </div>
-            
+
                 </div>
             </div>
         </div>
     </div>
 
 
-    
+
 
     <script src="script.js"></script>
 </body>
