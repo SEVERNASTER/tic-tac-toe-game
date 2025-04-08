@@ -12,6 +12,7 @@ let intentos = 9
 let tableroDOM = document.getElementById('tablero')
 
 
+
 acomodarCeldas()
 function acomodarCeldas() {
     let aux = 0;
@@ -156,4 +157,14 @@ function imprimirMatriz() {
 function inhabilitarTodasLasCeldas() {
     document.querySelectorAll('.celda').forEach(celda => celda.classList.add('ocupado'))
 }
+
+const contenedor = document.getElementById('contenedor')
+const contenedorPrincipal = document.getElementById('contenedorPrincipal')
+const dimensiones = contenedor.getBoundingClientRect()
+
+contenedorPrincipal.style.height = dimensiones.height;
+
+
+console.log(dimensiones);
+
 
