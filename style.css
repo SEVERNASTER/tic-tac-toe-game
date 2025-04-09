@@ -46,6 +46,7 @@ html {
     min-width: 200px;
     color: #fff;
     padding: 10px;
+    border: solid #fff;
 }
 
 .jugador h2,
@@ -426,7 +427,7 @@ html {
     color: #F89227;
     transition: .5s;
     padding: 0 10px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
 }
 
 .grupo-input input:focus ~ label,

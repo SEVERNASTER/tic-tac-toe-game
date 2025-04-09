@@ -200,15 +200,23 @@ nombresJugadores.addEventListener('submit', (e) => {
     turnoJugadorHTML.textContent = `${nombreJugador1} (${simboloActual})`
     turnoJugadorHTML.style.color = '#E2453D'
 
+    girarPantallaInicioJuego()
+
+    setTimeout(() => {
+        document.getElementById('jugador1').value = ''
+        document.getElementById('jugador2').value = ''
+    }, 1000);
 
     console.log(data);
 
 
-    pantallaDeInicio.classList.add('girar')
-    patallaJuego.classList.add('girar')
-
-
 })
+
+function girarPantallaInicioJuego(){
+    pantallaDeInicio.classList.toggle('girar')
+    patallaJuego.classList.toggle('girar')
+
+}
 
 document.getElementById('reiniciarBtn').addEventListener('click', () => {
     reiniciarVariables()
@@ -229,17 +237,24 @@ function reiniciarVariables(){
     habilitarTodasLasCasillas()
 }
 
-    // esTurnoJugador1 = true
-    // simboloActual = 'X'
-    // simboloContrario = 'O'
-    // tablero = [['', '', ''], ['', '', ''], ['', '', '']]
-    // celdasGanadoras = []
-    // intentos = 9
-    // celdas.forEach(celda => celda.querySelector('span').textContent = '')
-    // turnoJugadorHTML.style.color = '#E2453D'
-    // turnoJugadorHTML.textContent = `${jugador1} (X)`
-    // ocultarEmpateLabel()
-    // habilitarTodasLasCasillas()
+document.getElementById('deNuevoBtn').addEventListener('click', () => {
+    desmarcarCeldasGanadoras()
+    esTurnoJugador1 = true
+    simboloActual = 'X'
+    simboloContrario = 'O'
+    tablero = [['', '', ''], ['', '', ''], ['', '', '']]
+    celdasGanadoras = []
+    intentos = 9
+    celdas.forEach(celda => celda.querySelector('span').textContent = '')
+    turnoJugadorHTML.style.color = '#E2453D'
+    turnoJugadorHTML.textContent = `${jugador1} (X)`
+    ocultarEmpateLabel()
+    habilitarTodasLasCasillas()
+    jugador1 = ''
+    jugador2 = ''
+    girarPantallaInicioJuego()
+})
+
 
 
 
