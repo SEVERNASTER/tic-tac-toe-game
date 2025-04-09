@@ -84,6 +84,12 @@ html {
     border-radius: 20px;
     padding: 10px;
     overflow: hidden;
+    transition: 1s;
+    transform-style: preserve-3d;
+}
+
+.tablero.rotar {
+    transform: rotateY(360deg);
 }
 
 .tablero::before {

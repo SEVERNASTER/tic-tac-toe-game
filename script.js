@@ -20,7 +20,6 @@ let jugador2 = '';
 
 
 
-
 acomodarCeldas()
 function acomodarCeldas() {
     let aux = 0;
@@ -61,8 +60,6 @@ celdas.forEach(celda => {
             return
         } else if (intentos === 0) {
             mostrarEmpateLabel()
-            console.log('empate');
-
         }
 
 
@@ -144,9 +141,17 @@ function diagonalesTresEnRaya() {
 }
 
 function marcarCeldasGanadoras(celdas) {
+    celdasGanadoras = celdas
     celdas.forEach(celda => {
         celda.classList.add('ganador')
         celda.querySelector('span').style.color = '#fff'
+    })
+}
+
+function desmarcarCeldasGanadoras(){
+    celdasGanadoras.forEach(celda => {
+        celda.classList.remove('ganador')
+        celda.querySelector('span').style.color = esTurnoJugador1 ? colorX : colorO
     })
 }
 
@@ -154,7 +159,13 @@ function mostrarEmpateLabel() {
     tableroDOM.classList.add('mostrar-before')
     setTimeout(() => {
         tableroDOM.classList.add('empate')
+    }, 50);
+}
 
+function ocultarEmpateLabel(){
+    tableroDOM.classList.remove('empate')
+    setTimeout(() => {
+        tableroDOM.classList.remove('mostrar-before')
     }, 50);
 }
 
@@ -167,6 +178,10 @@ function imprimirMatriz() {
 
 function inhabilitarTodasLasCeldas() {
     document.querySelectorAll('.celda').forEach(celda => celda.classList.add('ocupado'))
+}
+
+function habilitarTodasLasCasillas(){
+    document.querySelectorAll('.celda').forEach(celda => celda.classList.remove('ocupado'))
 }
 
 
@@ -194,6 +209,37 @@ nombresJugadores.addEventListener('submit', (e) => {
 
 
 })
+
+document.getElementById('reiniciarBtn').addEventListener('click', () => {
+    reiniciarVariables()
+})
+
+function reiniciarVariables(){
+    desmarcarCeldasGanadoras()
+    esTurnoJugador1 = !esTurnoJugador1
+    simboloContrario = simboloActual
+    simboloActual = esTurnoJugador1 ? 'X' : 'O'
+    tablero = [['', '', ''], ['', '', ''], ['', '', '']]
+    celdasGanadoras = []
+    intentos = 9
+    celdas.forEach(celda => celda.querySelector('span').textContent = '')
+    turnoJugadorHTML.style.color = esTurnoJugador1 ? '#E2453D' : '#F89227'
+    turnoJugadorHTML.textContent = esTurnoJugador1 ?  `${jugador1} (X)` : `${jugador2} (O)`
+    ocultarEmpateLabel()
+    habilitarTodasLasCasillas()
+}
+
+    // esTurnoJugador1 = true
+    // simboloActual = 'X'
+    // simboloContrario = 'O'
+    // tablero = [['', '', ''], ['', '', ''], ['', '', '']]
+    // celdasGanadoras = []
+    // intentos = 9
+    // celdas.forEach(celda => celda.querySelector('span').textContent = '')
+    // turnoJugadorHTML.style.color = '#E2453D'
+    // turnoJugadorHTML.textContent = `${jugador1} (X)`
+    // ocultarEmpateLabel()
+    // habilitarTodasLasCasillas()
 
 
 
